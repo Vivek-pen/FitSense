@@ -16,8 +16,13 @@ import java.util.stream.Collectors;
 public class ActivityServiceImpl implements ActivityService {
 
     private final ActivityRepository activityRepository;
+    private final UserValidationService userValidationService;
 
     public ActivityResponse trackActivity(ActivityRequest request){
+        boolean bool = userValidationService.validateUser(request.getUserId());
+        if(!bool){
+            throw new RuntimeException("User does not exist: "+request.getUserId());
+        }
         Activity activity = Activity.builder()
                 .userId(request.getUserId())
                 .type(request.getActivityType())
@@ -42,6 +47,8 @@ public class ActivityServiceImpl implements ActivityService {
                 .map(this::mapToResponse)
                 .orElseThrow(()-> new RuntimeException("Activity Not Found with id: "+activityId));
     }
+
+
 
     private ActivityResponse mapToResponse(Activity activity){
         ActivityResponse activityResponse = new ActivityResponse();

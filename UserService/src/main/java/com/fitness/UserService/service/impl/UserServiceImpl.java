@@ -36,4 +36,9 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(userId).orElseThrow(()-> new RuntimeException("USER not found"));
         return userMapper.userResponseMapper(user);
     }
+
+    @Override
+    public Boolean existsByUserId(String userId) {
+        return userRepository.existsById(userId);
+    }
 }

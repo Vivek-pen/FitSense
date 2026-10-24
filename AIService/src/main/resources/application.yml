@@ -1,35 +1,5 @@
 spring:
   application:
     name: ai-service
-  mongodb:
-    uri: mongodb://localhost:27017/fitnessrecommendation
-    database: fitnessrecommendation
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
-  ai:
-    google:
-      genai:
-        api-key: ${AI_GOOGLE_GENAI_API_KEY}
-        chat:
-          model: gemini-3.8-flash
-
-server:
-  port: 8083
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka
-    register-with-eureka: true
-    fetch-registry: true
-
-rabbitmq:
-  exchange:
-    name: fitness.exchange
-  queue:
-    name: activity.queue
-  routing:
-    key: activity.tracking
+  config:
+    import: optional:configserver:http://localhost:8888

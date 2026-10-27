@@ -1,10 +1,33 @@
+server:
+  port: 9090
 spring:
   application:
     name: api-gateway
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8181/realms/fitness-oauth2
+          jwk-set-uri: http://localhost:8181/realms/fitness-oauth2/protocol/openid-connect/certs
   cloud:
     gateway:
       server:
-        webmvc:
+        webflux:
+          globalcors:
+            add-to-simple-url-handler-mapping: true
+            cors-configurations:
+              '[/**]':
+                allowedOrigins:
+                  - http://localhost:5173
+                allowedMethods:
+                  - GET
+                  - POST
+                  - OPTIONS
+                allowedHeaders:
+                  - Authorization
+                  - Content-Type
+                  - Accept
+                allowCredentials: true
           routes:
             - id: user-service
               uri: lb://USER-SERVICE
@@ -20,12 +43,6 @@ spring:
               uri: lb://AI-SERVICE
               predicates:
                 - Path=/api/recommendations/**
-
-
-
-
-server:
-  port: 9090
 
 eureka:
   client:

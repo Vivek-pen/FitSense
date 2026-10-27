@@ -23,7 +23,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponse register(RegisterRequest request) {
         if(userRepository.existsByEmail(request.getEmail())){
-            throw new RuntimeException("Email Already Exists");
+            User existingUser = userRepository.findByEmail(request.getEmail());
+            UserResponse userRes = userMapper.userResponseMapper(existingUser);
+            return userRes;
         }
         User user = userMapper.userMapper(request);
         User savedUser = userRepository.save(user);
@@ -38,7 +40,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean existsByUserId(String userId) {
-        return userRepository.existsById(userId);
+    public Boolean existsByKeycloakId(String userId) {
+        return userRepository.existsByKeycloakId(userId);
     }
 }

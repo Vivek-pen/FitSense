@@ -10,5 +10,5 @@ public interface UserService {
 
     public UserResponse getUserProfile(String userId);
 
-    public Boolean existsByUserId(String userId);
+    public Boolean existsByKeycloakId(String userId);
 }

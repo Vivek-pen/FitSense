@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.locks.LockSupport;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,7 +25,7 @@ public class RecommendationController {
 
     @GetMapping("/activity/{activityId}")
     public ResponseEntity<Recommendation> getActivityRecommendation(@PathVariable String activityId){
-        return ResponseEntity.ok(recommendationService.getRecommendationsForActivity(activityId));
+        return ResponseEntity.ofNullable(recommendationService.getRecommendationsForActivity(activityId));
     }
 
 }

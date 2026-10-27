@@ -33,7 +33,7 @@ public class RecommendationServiceImpl implements RecommendationService {
 
     @Override
     public Recommendation getRecommendationsForActivity(String activityId) {
-        return recommendationRepository.findByActivityId(activityId).orElseThrow(() -> new RuntimeException("No recommendation Found for activity: "+activityId));
+        return recommendationRepository.findByActivityId(activityId).orElse(null);
     }
 
     @Override

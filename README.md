@@ -153,12 +153,4 @@ remaining services.
 Recommendation generation is asynchronous, so it may not be available
 immediately after an activity is created.
 
-## Security
-
-- Never commit Gemini API keys, database passwords, access tokens, or client
-  secrets.
-- Use environment variables or a secrets manager for sensitive configuration.
-- Use HTTPS and explicit allowed origins outside local development.
-- Keep Keycloak, RabbitMQ management, databases, and service ports protected
-  from public access.
 
